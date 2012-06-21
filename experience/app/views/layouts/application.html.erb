@@ -7,8 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+<div class="container"> 
+  <div class="row" "navbar"> 
+    <%=render "shared/topnav" %> 
+  </div> 
+</div> 
+<div class="container">
+  <div class="row" "eightcol">
+    <div id="calendar_container">
+      <%= yield %>
+    <div> 
+  </div> 
+</div> 
 
 </body>
 </html>

@@ -12,5 +12,15 @@
  *= require_tree .
  */
 body{ 
-  background-image: url('/assets/images/background.png');
+  background: url('background.png');
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1{ 
+  font-size: 56px;
+
+}
+
+#calendar_container{ 
+  background: #FFFFF9;
 }
