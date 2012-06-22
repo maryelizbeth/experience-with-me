@@ -11,19 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120621220510) do
+ActiveRecord::Schema.define(:version => 20120622192525) do
+
+  create_table "authentications", :force => true do |t|
+    t.string   "provider"
+    t.integer  "uid"
+    t.string   "user_id"
+    t.string   "token"
+    t.string   "avatar"
+    t.string   "refresh_token"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id", :unique => true
+
+  create_table "availabilities", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "time_start"
+    t.datetime "time_end"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.datetime "remember_created_at"
     t.string   "name"
     t.string   "email"
-    t.string   "calendar_id"
-    t.string   "uid"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["uid"], :name => "index_users_on_uid", :unique => true
 
 end

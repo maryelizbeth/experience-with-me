@@ -1,15 +1,11 @@
-class Users::SessionsController < Devise::SessionsController
+class SessionsController < Devise::SessionsController
   before_filter :authenticate_user!
 
   def new 
     super
-  end 
-
-  def create 
-
+    @current_user = current_user
   end 
 
   def destroy
-    
   end 
 end
