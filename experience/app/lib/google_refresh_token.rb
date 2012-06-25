@@ -3,6 +3,7 @@ class GoogleRefreshToken
 
   def initialize(google_account)
     @google_account = google_account
+    save_token
   end
 
   def get_new_token

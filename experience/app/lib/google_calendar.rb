@@ -2,26 +2,23 @@ require 'faraday'
 require 'json'
 
 class GoogleCalendar
-  attr_accessor :client, :token, :user_email, :time_start, :time_end, :user
-  CALENDAR_URL = '/calendar/v3/freeBusy?fields=calendars&key=#{GOOGLE_KEY}.apps.googleusercontent.com'
+  attr_accessor :client, :token, :user, :possible_time
+  CALENDAR_URL = '/calendar/v3/freeBusy?fields=calendars&key=1010028708675.apps.googleusercontent.com'
 
-  def initialize(user, time_start, time_end)
-    GoogleRefreshToken.new(user.authentications.where(provider: "google"))
-    @token = "Bearer #{user.authentications.where(provider: 'google').first.token}"
+  def initialize(user, possible_time)
+    GoogleRefreshToken.new(user.google)
+    @token = "Bearer #{user.google.token}"
     @user = user
     @user_email = user.email
-    @time_start = time_start
-    @time_end   = time_end
+    @possible_time = possible_time
   end
 
   def get_availability
-    resp = client.post do |req|
-             req.url CALENDAR_URL
-             req.headers['Content-Type'] = 'application/json'
-             req.headers['Authorization'] = token
-             req.body = body.to_json
-          end
-     JSON.parse(resp.body)
+    if get_availability["calendars"]["#{user.email}"]["busy"].size == 0
+      user.possible_attendees.create(possible_time_id: possible_time.id)
+    else 
+      user.possible_attendees.where(possible_time_id: possible_time.id).delete_all
+    end
   end
 
   def save_availability
@@ -43,11 +40,11 @@ class GoogleCalendar
   {
     items: [
       {
-        id: user_email
+        id: user.email
       }
     ],
-      timeMin: time_start.round.iso8601(3),
-      timeMax: time_end.round.iso8601(3)
+      timeMin: possible_time.time_start.round.iso8601(3),
+      timeMax: possible_time.time_end.round.iso8601(3)
   }
   end
 end
