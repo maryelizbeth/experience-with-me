@@ -29,16 +29,6 @@ ActiveRecord::Schema.define(:version => 20120625142904) do
     t.datetime "updated_at",    :null => false
   end
 
-  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id", :unique => true
-
-  create_table "availabilities", :force => true do |t|
-    t.integer  "user_id"
-    t.datetime "time_start"
-    t.datetime "time_end"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.datetime "remember_created_at"
     t.string   "name"

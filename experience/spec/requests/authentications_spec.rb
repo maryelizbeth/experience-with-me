@@ -1,11 +1,12 @@
 require 'spec_helper'
 
-describe "Authentications" do
-  describe "GET /authentications" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get authentications_path
-      response.status.should be(200)
-    end
+
+describe "GET /o/oauth2/auth" do
+  before do 
+    visit root_path 
+    click_link "sign in with google"
+  end 
+  it "directs the user to google auth page" do
+    page.should have_content("access your Google Account.")
   end
 end
