@@ -7,6 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div class='notice'>
+  <% if flash[:notice] %>
+    <p class="fourcol"><%=h flash[:notice] %></p>
+  <% end %>
+</div>
 <div class="container"> 
   <div class="row" "navbar"> 
     <%=render "shared/topnav" %> 

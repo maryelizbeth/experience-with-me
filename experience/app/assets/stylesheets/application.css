@@ -23,6 +23,10 @@ h1{
 
 }
 
+.notice { 
+  min-height: 50px;
+  background: ;
+}
 #calendar_container{ 
   background: #FFFFF9;
 }
