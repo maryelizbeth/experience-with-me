@@ -1,0 +1,9 @@
+<h1 class="title-font"> Invite a Friend </h1> 
+<% form_for @invitation do |f| %>
+  <p>
+    <%= f.label :recipient_email, "Email:" %><br />
+    <%= f.text_field :recipient_email %>
+    <%= f.hidden_field :invitation_token %>
+  </p>
+  <p><%= f.submit "Invite!" %></p>
+<% end %>

@@ -1,4 +1,4 @@
-class SessionsController < Devise::SessionsController
+class User::SessionsController < Devise::SessionsController
   before_filter :authenticate_user!
 
   def new 
@@ -7,5 +7,7 @@ class SessionsController < Devise::SessionsController
   end 
 
   def destroy
+    reset_session
+    redirect_to root_url
   end 
 end

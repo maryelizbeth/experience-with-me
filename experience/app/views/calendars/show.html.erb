@@ -1,14 +1,14 @@
-<h1>My Calendar</h1> 
+<h1 class="title-font">My Calendar</h1> 
 
-<h2>When am I free?</h3>
+<h2>Calendar Info</h2>
 <br /> 
 <br /> 
-<h2>Who can I invite?</h3>
+<h2>Contacts</h2>
 <br /> 
 <br /> 
 <% if current_user %> 
-  <%= current_user.name %>
-  <%= link_to "sign out", "#" %>  
+  <h2><%= current_user.name %></h2>
+  <%= link_to "sign out", sign_out_path %>  
 <% else %> 
   <%=link_to "sign in with google", user_omniauth_authorize_path(:google) %>
 <% end %> 
