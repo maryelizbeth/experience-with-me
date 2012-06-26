@@ -13,16 +13,19 @@
  */
 body{ 
   background: url('background.png');
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #0C0831;
+  font-family: "mplus-1m";
   margin-top: 20px;
 }
 
 h1{ 
   font-size: 56px;
-
 }
 
+.notice { 
+  min-height: 50px;
+  
+}
 #calendar_container{ 
   background: #FFFFF9;
 }
