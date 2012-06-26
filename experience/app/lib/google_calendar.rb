@@ -1,31 +1,34 @@
-require 'faraday'
-require 'json'
-
 class GoogleCalendar
-  attr_accessor :client, :token, :user, :possible_time
-  CALENDAR_URL = "/calendar/v3/freeBusy?fields=calendars&key=#{GOOGLE_KEY}"
-
+  attr_accessor :client, :token, :possible_time, :user
+  CALENDAR_URL = '/calendar/v3/freeBusy?fields=calendars&key=15981128324.apps.googleusercontent.com'
 
   def initialize(user, possible_time)
-    GoogleRefreshToken.new(user.google)
+    get_new_token(user)
     @token = "Bearer #{user.google.token}"
     @user = user
-    @user_email = user.email
     @possible_time = possible_time
   end
 
+  def get_new_token(user)
+    rgt = RefreshGoogleToken.new(user.google)
+    rgt.save_token
+  end
+
   def get_availability
-    if get_availability["calendars"]["#{user.email}"]["busy"].size == 0
-      user.possible_attendees.create(possible_time_id: possible_time.id)
-    else 
-      user.possible_attendees.where(possible_time_id: possible_time.id).delete_all
-    end
+    resp = client.post do |req|
+             req.url CALENDAR_URL
+             req.headers['Content-Type'] = 'application/json'
+             req.headers['Authorization'] = token
+             req.body = body.to_json
+          end
+     JSON.parse(resp.body)
   end
 
   def save_availability
-    get_availability["calendars"]["#{user.email}"]["busy"].each do |appt|
-      user.availabilities.create!(time_start: Time.parse(appt["start"]),
-                                  time_end: Time.parse(appt["end"]))
+    if get_availability["calendars"]["#{user.email}"]["busy"].size == 0
+      user.possible_attendees.create(possible_time_id: possible_time.id)
+    else
+      user.possible_attendees.where(possible_time_id: possible_time.id).destroy_all
     end
   end
 

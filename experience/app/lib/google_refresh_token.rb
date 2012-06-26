@@ -1,9 +1,8 @@
-class GoogleRefreshToken
+class RefreshGoogleToken
   attr_accessor :client, :google_account
 
   def initialize(google_account)
     @google_account = google_account
-    save_token
   end
 
   def get_new_token
