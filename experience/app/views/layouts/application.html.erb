@@ -4,9 +4,17 @@
   <title>ExperienceWith.Me</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <script type="text/javascript" src="http://use.typekit.com/mcz7ffa.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div class='notice'>
+  <% if flash[:notice] %>
+    <p class="fourcol"><%=h flash[:notice] %></p>
+  <% end %>
+</div>
 <div class="container"> 
   <div class="row" "navbar"> 
     <%=render "shared/topnav" %> 
