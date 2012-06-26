@@ -35,7 +35,7 @@ class Adventure < ActiveRecord::Base
   end 
 
 
-  def available_contacts
+  def available_friends
     # iterate through contacts 
       # check each contacts calendar for dates
     # end 
