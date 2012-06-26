@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
-  devise :rememberable, :omniauthable
+  devise :omniauthable, :database_authenticatable
 
-  attr_accessible :email, :name, :remember_me
-
+  attr_accessible :email, :name, :password, :password_confirmation
   has_many :authentications
   has_many :possible_attendees
   has_many :invitations

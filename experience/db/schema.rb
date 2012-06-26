@@ -38,11 +38,13 @@ ActiveRecord::Schema.define(:version => 20120626134705) do
   end
 
   create_table "users", :force => true do |t|
-    t.datetime "remember_created_at"
+    t.string   "encrypted_password"
+    t.string   "password"
+    t.string   "password_confirmation"
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
